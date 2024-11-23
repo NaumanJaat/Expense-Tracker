@@ -1,0 +1,210 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.loggedIn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loggedIn button {
+  background-color: #007bff;
+  width: 5rem;
+
+}
+
+.loggedIn button:hover {
+  background-color: #0056b3;
+}
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Ensures horizontal centering */
+  justify-content: center; /* Ensures vertical alignment */
+  text-align: center; /* Centers text within the container */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Makes the container responsive on mobile */
+  max-width: 400px; /* Limits the width for larger screens */
+  margin: 0 auto; /* Centers the container horizontally */
+}
+
+.dashboard h2 {
+  margin-bottom: 20px;
+  color: #333; /* Dark color for better visibility */
+  font-size: 24px;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column; /* Stacks buttons vertically */
+  align-items: center; /* Centers buttons horizontally */
+  gap: 10px; /* Adds spacing between buttons */
+}
+
+.button,
+.contactButton {
+  width: 7rem; /* Fixed width for buttons */
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.button {
+  background-color: #dc3545; /* Red for logout */
+  color: white;
+}
+
+.button:hover {
+  background-color: #c82333;
+}
+
+.contactButton {
+  background-color: #28a745; /* Green for contact */
+  color: white;
+}
+
+.contactButton:hover {
+  background-color: #218838;
+}
+.pageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Ensures full height of the viewport */
+  background-color: #f8f9fa; /* Light gray background */
+  margin: 0; /* Removes default browser margin */
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Responsive width */
+  max-width: 400px; /* Limits maximum width */
+  margin: 0 auto; /* Centers container horizontally */
+}
+
+h1 {
+  color: #1d4ed8; /* Blue title color */
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px; /* Spacing between inputs */
+}
+
+.input {
+  width: 100%; /* Full width of the container */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column; /* Stacks buttons vertically */
+  align-items: center; /* Centers buttons */
+  gap: 10px; /* Adds spacing between buttons */
+  margin-top: 20px;
+}
+
+.button {
+  width: 100%; /* Full width of the button */
+  max-width: 200px; /* Restricts maximum width */
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #1d4ed8; /* Blue for login button */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #2563eb;
+}
+
+.contactButton {
+  width: 100%;
+  max-width: 200px;
+  margin-top: 2px;
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #10b981; /* Green for Contact Us button */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contactButton:hover {
+  background-color: #059669;
+}
+
+.loginMessage {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #6b7280; /* Gray text for the message */
+}

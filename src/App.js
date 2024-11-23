@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { AuthProvider } from './context/AuthContext';
+import { ExpenseProvider } from './context/ExpenseContext';
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+import styles from './App.module.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <ExpenseProvider>
+        <div className={styles.app}>
+          <h1 className={styles.title}>Expense Tracker App</h1>
+          <Login />
+          <Dashboard />
+        </div>
+      </ExpenseProvider>
+    </AuthProvider>
   );
 }
 
