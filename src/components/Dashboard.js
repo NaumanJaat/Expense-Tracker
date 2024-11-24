@@ -16,6 +16,16 @@ const Dashboard = () => {
   // Filter expenses by user ID
   const userExpenses = expenses.filter((expense) => expense.userID === user.id);
 
+  // Utility function to format PKR
+  const formatPKR = (number) => {
+    if (number >= 1_000_000) {
+      return `₨ ${(number / 1_000_000).toFixed(1)}M`;
+    } else if (number >= 1_000) {
+      return `₨ ${(number / 1_000).toFixed(1)}K`;
+    }
+    return `₨ ${number.toLocaleString()}`;
+  };
+
   // Calculate totals
   const totalIncome = userExpenses
     .filter((expense) => expense.amount > 0)
@@ -27,16 +37,21 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboard}>
+      {/* Welcome Message */}
+
+      {/* Summary Section */}
       <div className={styles.summary}>
         <div className={styles.total}>
           <h3>Total Income</h3>
-          <p className={styles.income}>${totalIncome.toFixed(2)}</p>
+          <p className={`${styles.amount} ${styles.income}`}>{formatPKR(totalIncome)}</p>
         </div>
         <div className={styles.total}>
           <h3>Total Outcome</h3>
-          <p className={styles.outcome}>${totalOutcome.toFixed(2)}</p>
+          <p className={`${styles.amount} ${styles.outcome}`}>{formatPKR(totalOutcome)}</p>
         </div>
       </div>
+
+      {/* Expense Form and List */}
       <ExpenseForm />
       <ExpenseList />
     </div>

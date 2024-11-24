@@ -7,7 +7,128 @@
     color: #999;
     font-size: 1.2rem;
   }
-  
+  .dashboard {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.total {
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.total h3 {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.amount {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.income {
+  color: #28a745; /* Green for income */
+}
+
+.outcome {
+  color: #dc3545; /* Red for outcome */
+}
+
+.message {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 50px;
+  color: #555;
+}
+.dashboard {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.welcomeContainer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.welcomeContainer h2 {
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: bold;
+  margin: 0;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.total {
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.total h3 {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.amount {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.income {
+  color: #28a745; /* Green for income */
+}
+
+.outcome {
+  color: #dc3545; /* Red for outcome */
+}
+
+.message {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 50px;
+  color: #555;
+}
+
   .summary {
     display: flex;
     justify-content: space-between;

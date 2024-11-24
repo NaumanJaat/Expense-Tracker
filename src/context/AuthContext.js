@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { ref, set, get } from "firebase/database";
-import database from "../firebase";
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { ref, set, get } from 'firebase/database';
+import database from '../firebase';
 
 const AuthContext = createContext();
 
@@ -8,88 +8,99 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  // Sanitize email for Firebase
-  const sanitizeEmail = (email) => email.replace(/\./g, "_");
-
-  // Fetch user data
-  const fetchUserData = async (email) => {
-    const sanitizedEmail = sanitizeEmail(email);
-    const userRef = ref(database, `users/${sanitizedEmail}`);
-    const snapshot = await get(userRef);
-
-    if (snapshot.exists()) {
-      setUser({ id: sanitizedEmail, ...snapshot.val() });
-    } else {
-      setError("User not found!");
-      setUser(null);
+  // Utility function to format large numbers for PKR
+  const formatPKR = (number) => {
+    if (number >= 1_000_000) {
+      return `₨ ${(number / 1_000_000).toFixed(1)}M`; // Format as 1M+
+    } else if (number >= 1_000) {
+      return `₨ ${(number / 1_000).toFixed(1)}K`; // Format as 1K+
     }
+    return `₨ ${number.toLocaleString()}`; // Use commas for numbers less than 1K
   };
 
-  // Login
+  // Fetch user data and format totals
+  const fetchUserData = useCallback(async (userID) => {
+    try {
+      const userRef = ref(database, `users/${userID}`);
+      const snapshot = await get(userRef);
+
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        const totalIncome = userData.totalIncome || 0;
+        const totalOutcome = userData.totalOutcome || 0;
+
+        setUser({
+          id: userID,
+          name: userData.name,
+          expenses: userData.expenses || [],
+          totalIncome: formatPKR(totalIncome),
+          totalOutcome: formatPKR(totalOutcome),
+        });
+        setError(null);
+      } else {
+        setError('User not found!');
+        setUser(null);
+      }
+    } catch (err) {
+      setError('Failed to fetch user data.');
+    }
+  }, []);
+
+  // Login function
   const login = async (email, password) => {
     try {
-      const sanitizedEmail = sanitizeEmail(email);
-      const userRef = ref(database, `users/${sanitizedEmail}`);
+      const userRef = ref(database, `users/${email.replace('.', '_')}`);
       const snapshot = await get(userRef);
 
       if (snapshot.exists()) {
         const storedPassword = snapshot.val().password;
+
         if (storedPassword === password) {
-          await fetchUserData(email);
-          localStorage.setItem("userEmail", sanitizedEmail);
+          await fetchUserData(email.replace('.', '_'));
+          localStorage.setItem('userEmail', email);
           setError(null);
         } else {
-          setError("Incorrect password!");
+          setError('Incorrect password!');
+          setUser(null);
         }
       } else {
-        setError("User not found!");
+        setError('No account found for this email.');
+        setUser(null);
       }
     } catch (err) {
-      console.error("Login error:", err);
-      setError("Failed to login.");
+      setError('Failed to log in.');
     }
   };
 
-  // Create Account
+  // Create account function
   const createAccount = async (name, email, password) => {
     try {
-      const sanitizedEmail = sanitizeEmail(email);
-      const userRef = ref(database, `users/${sanitizedEmail}`);
-      const snapshot = await get(userRef);
+      const userRef = ref(database, `users/${email.replace('.', '_')}`); // Use email as the user ID
+      const newUser = { name, email, password, expenses: [], totalIncome: 0, totalOutcome: 0 };
 
-      if (snapshot.exists()) {
-        setError("An account with this email already exists!");
-      } else {
-        const newUser = {
-          name,
-          email,
-          password,
-          expenses: [],
-        };
-        await set(userRef, newUser);
-        setUser({ id: sanitizedEmail, name, expenses: [] });
-        localStorage.setItem("userEmail", sanitizedEmail);
-        setError(null);
-      }
+      await set(userRef, newUser);
+      // After account creation, set the user in context
+      setUser({ name, email, expenses: [], totalIncome: formatPKR(0), totalOutcome: formatPKR(0) });
+      localStorage.setItem('userEmail', email); // Store email in localStorage
+      setError(null);
     } catch (err) {
-      console.error("Create account error:", err);
-      setError("Failed to create an account.");
+      setError('Failed to create account.');
     }
   };
 
-  // Logout
+  // Logout function
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("userEmail");
+    localStorage.removeItem('userEmail');
   };
 
-  // Auto-login on app load
+  // Check localStorage for existing login
   useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail");
-    if (storedEmail) {
-      fetchUserData(storedEmail);
+    const storedUserEmail = localStorage.getItem('userEmail');
+    if (storedUserEmail) {
+      fetchUserData(storedUserEmail.replace('.', '_'));
     }
-  }, []);
+  }, [fetchUserData]);
 
   return (
     <AuthContext.Provider value={{ user, login, createAccount, logout, error }}>

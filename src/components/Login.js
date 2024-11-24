@@ -38,7 +38,11 @@ const Login = () => {
   if (user) {
     return (
       <div className={styles.dashboard}>
-        <h2>Welcome, {user.name}!</h2>
+        {/* Welcome message with user ID or name */}
+        <div className={styles.welcomeContainer}>
+          <h2>Welcome, {user.name || user.id}!</h2>
+        </div>
+
         <div className={styles.buttonGroup}>
           <button onClick={logout} className={styles.button}>
             Logout
