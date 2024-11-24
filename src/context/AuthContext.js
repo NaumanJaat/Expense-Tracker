@@ -80,11 +80,50 @@ export const AuthProvider = ({ children }) => {
 
       await set(userRef, newUser);
       // After account creation, set the user in context
-      setUser({ name, email, expenses: [], totalIncome: formatPKR(0), totalOutcome: formatPKR(0) });
+      setUser({ id: email.replace('.', '_'), name, email, expenses: [], totalIncome: formatPKR(0), totalOutcome: formatPKR(0) });
       localStorage.setItem('userEmail', email); // Store email in localStorage
       setError(null);
     } catch (err) {
       setError('Failed to create account.');
+    }
+  };
+
+  // Add an expense
+  const addExpense = async (expense) => {
+    const { userID, amount, category, description } = expense;
+
+    // Check for required fields to ensure no undefined values are passed
+    if (!userID || !amount || !category || !description) {
+      console.error('Missing required fields to add expense');
+      return;
+    }
+
+    try {
+      const expenseRef = ref(database, `users/${userID}/expenses`);
+
+      // Generate unique ID for the expense
+      const expenseId = new Date().toISOString(); // You can use Firebase push() for automatic ID
+
+      await set(ref(database, `users/${userID}/expenses/${expenseId}`), {
+        amount,
+        category,
+        description,
+        date: new Date().toISOString(),
+      });
+
+      // Optionally update totalIncome/totalOutcome if needed
+      const userRef = ref(database, `users/${userID}`);
+      const snapshot = await get(userRef);
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        const updatedTotalOutcome = userData.totalOutcome + amount; // For example, if it's an expense
+
+        await set(ref(database, `users/${userID}/totalOutcome`), updatedTotalOutcome);
+      }
+
+      console.log('Expense added successfully!');
+    } catch (error) {
+      console.error('Error adding expense: ', error);
     }
   };
 
@@ -103,7 +142,7 @@ export const AuthProvider = ({ children }) => {
   }, [fetchUserData]);
 
   return (
-    <AuthContext.Provider value={{ user, login, createAccount, logout, error }}>
+    <AuthContext.Provider value={{ user, login, createAccount, addExpense, logout, error }}>
       {children}
     </AuthContext.Provider>
   );

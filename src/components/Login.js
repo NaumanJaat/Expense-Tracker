@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import styles from "./Login.module.css";
+import Footer from "../components/Footer"; // Import Footer
 
 const Login = () => {
   const { login, createAccount, logout, error, user } = useAuth();
@@ -38,11 +39,7 @@ const Login = () => {
   if (user) {
     return (
       <div className={styles.dashboard}>
-        {/* Welcome message with user ID or name */}
-        <div className={styles.welcomeContainer}>
-          <h2>Welcome, {user.name || user.id}!</h2>
-        </div>
-
+        <h2>Welcome, {user.name}!</h2>
         <div className={styles.buttonGroup}>
           <button onClick={logout} className={styles.button}>
             Logout
@@ -51,6 +48,7 @@ const Login = () => {
             Contact Us
           </button>
         </div>
+        <Footer /> {/* Footer here */}
       </div>
     );
   }
@@ -116,6 +114,7 @@ const Login = () => {
         </>
       )}
       {error && <p className={styles.error}>{error}</p>}
+      <Footer /> {/* Footer here */}
     </div>
   );
 };

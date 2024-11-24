@@ -1,0 +1,14 @@
+/* src/components/Footer.module.css */
+.footer {
+    background-color: transparent;
+    color: #aaa; /* Light gray text color */
+    font-size: 12px; /* Smaller font size */
+    text-align: center;
+    padding: 5px; /* Smaller padding */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    box-shadow: none; /* No box shadow */
+  }
+  
