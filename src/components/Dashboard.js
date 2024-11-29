@@ -6,15 +6,13 @@ import ExpenseList from './ExpenseList';
 import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth(); // Import `logout` from AuthContext
   const { expenses } = useExpense();
 
-  if (!user) {
-    return <p className={styles.message}>Please log in to view your dashboard.</p>;
-  }
-
-  // Filter expenses by user ID
-  const userExpenses = expenses.filter((expense) => expense.userID === user.id);
+  // Contact Us Handler
+  const handleContactUs = () => {
+    alert('Contact us at support@example.com');
+  };
 
   // Utility function to format PKR
   const formatPKR = (number) => {
@@ -26,6 +24,14 @@ const Dashboard = () => {
     return `₨ ${number.toLocaleString()}`;
   };
 
+  // Ensure user exists before proceeding
+  if (!user) {
+    return <div>Please log in to view your dashboard.</div>;
+  }
+
+  // Filter expenses by user ID
+  const userExpenses = expenses.filter((expense) => expense.userID === user.id);
+
   // Calculate totals
   const totalIncome = userExpenses
     .filter((expense) => expense.amount > 0)
@@ -35,9 +41,11 @@ const Dashboard = () => {
     .filter((expense) => expense.amount < 0)
     .reduce((acc, expense) => acc + Math.abs(expense.amount), 0);
 
+  // Calculate available balance
+  const balance = totalIncome - totalOutcome;
+
   return (
     <div className={styles.dashboard}>
-      {/* Welcome Message */}
 
       {/* Summary Section */}
       <div className={styles.summary}>
@@ -49,7 +57,13 @@ const Dashboard = () => {
           <h3>Total Outcome</h3>
           <p className={`${styles.amount} ${styles.outcome}`}>{formatPKR(totalOutcome)}</p>
         </div>
+        <div className={`${styles.total} ${styles.balanceContainer}`}>
+          <h3>Available Balance</h3>
+          <p className={`${styles.amount} ${styles.balance}`}>{formatPKR(balance)}</p>
+        </div>
       </div>
+
+  
 
       {/* Expense Form and List */}
       <ExpenseForm />

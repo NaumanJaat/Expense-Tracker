@@ -15,7 +15,7 @@ const ExpenseList = () => {
       <ul className={styles.list}>
         {userExpenses.map((expense) => (
           <li key={expense.id} className={styles.item}>
-            {expense.date} - {expense.description} - ${expense.amount}
+            {expense.date} - {expense.description} - RS{expense.amount}
             <button
               onClick={() => removeExpense(expense.id)}
               className={styles.button}

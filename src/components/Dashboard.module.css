@@ -121,7 +121,51 @@
 .outcome {
   color: #dc3545; /* Red for outcome */
 }
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
 
+.total {
+  flex: 1;
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.total h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.total p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.amount.income {
+  color: #28a745; /* Green for income */
+}
+
+.amount.outcome {
+  color: #dc3545; /* Red for outcome */
+}
+
+.amount.balance {
+  color: #007bff; /* Blue for balance */
+}
+
+.balanceContainer {
+  margin-top: 20px;
+  flex-basis: 100%; /* Ensure it takes the full width */
+  background-color: #e8f4fc; /* Light blue background */
+}
 .message {
   text-align: center;
   font-size: 1.2rem;
