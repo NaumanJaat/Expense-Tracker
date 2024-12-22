@@ -26,7 +26,9 @@ const Dashboard = () => {
 
   // Ensure user exists before proceeding
   if (!user) {
-    return <div>Please log in to view your dashboard.</div>;
+    return <div style={{ textAlign: 'center', fontSize: '1.5rem', color: '#333' }}>
+    Please log in to view your dashboard.
+  </div>;
   }
 
   // Filter expenses by user ID
