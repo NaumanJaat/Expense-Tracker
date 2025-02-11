@@ -1,0 +1,37 @@
+
+/* Footer.module.css */
+.footer {
+
+  margin-top: 1rem;
+  color: #aaa;
+  font-size: 12px;
+  text-align: center;
+  padding: 5px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  box-shadow: none;
+  z-index: 1000;
+  display: none; /* Initially hidden */
+  opacity: 0; /* Initially invisible */
+  transition: opacity 0.5s ease; /* Smooth fade-in transition */
+}
+
+/* When the footer becomes visible */
+.footer.show {
+  display: block; /* Show footer */
+  opacity: 1; /* Fully visible */
+  animation: fadeIn 1s ease; /* Add animation for fade-in effect */
+}
+
+/* Define the fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Start as invisible */
+  }
+  to {
+    opacity: 1; /* End as fully visible */
+  }
+}
+/* > 14bc462 (Added fade-in animation and transparency to footer) */
